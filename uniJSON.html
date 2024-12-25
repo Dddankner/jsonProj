@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <h2>add students</h2>
+    <hr>
+    <label for="stuFirstName">firstName: </label><input type="text" name="stuFirstName" id="stuFirstName">
+    <label for="stuSecName">second name: </label><input type="text" name="stuSecName" id="stuSecName">
+    <label for="stuMail">mail: </label><input type="text" name="stuMail" id="stuMail">
+    <label for="stuAge">age:</label><input type="number" name="stuAge" id="stuAge">
+    <select name="stuGender" id="stuGender">
+        <option value="plcHolder" disabled="true" selected>choose gender</option>
+        <option value="male">male</option>
+        <option value="female">female</option>
+    </select>
+    <select name="stuCity" id="stuCity">
+        <option value="plcHolder" disabled="true" selected>choose city</option>
+        <option value="tlv">tel aviv - yafo</option>
+        <option value="haifa">haifa</option>
+        <option value="shoham">shoham</option>
+        <option value="raanana">raanana</option>
+        <option value="herzeliya">herzeliya</option>
+        <option value="lod">lod</option>
+    </select>
+    <button name="addStu" id="addStu" onclick="addStu()">add student</button>
+    <hr>
+    <h2>students:</h2>
+    <hr>
+    <div id="studentsDis"></div>
+    <hr>
+    <button onclick="saveStudents()">save</button><br>
+    <hr>
+    <div id="updStuForm" style="display: none;">
+        <label for="stuFirstNameUpd">firstName: </label><input type="text" name="stuFirstNameUpd" id="stuFirstNameUpd">
+        <label for="stuSecNameUpd">second name: </label><input type="text" name="stuSecNameUpd" id="stuSecNameUpd">
+        <label for="stuMailUpd">mail: </label><input type="text" name="stuMailUpd" id="stuMailUpd">
+        <label for="stuAgeUpd">age:</label><input type="number" name="stuAgeUpd" id="stuAgeUpd">
+        <select name="stuGenderUpd" id="stuGenderUpd">
+            <option value="plcHolder" disabled="true" selected>choose gender</option>
+            <option value="male">male</option>
+            <option value="female">female</option>
+        </select>
+        <select name="stuCityUpd" id="stuCityUpd">
+            <option value="plcHolder" disabled="true" selected>choose city</option>
+            <option value="tlv">tel aviv - yafo</option>
+            <option value="haifa">haifa</option>
+            <option value="shoham">shoham</option>
+            <option value="raanana">raanana</option>
+            <option value="herzeliya">herzeliya</option>
+            <option value="lod">lod</option>
+        </select>
+        <input type="number" name="stuIndUpd" id="stuIndUpd" style="display: none;" disabled>
+        <button name="updStu" id="updStu" onclick="addStu()">update student</button>
+    </div>
+    <script>
+        let students = [
+            {
+                firstName: 'yuval',
+                secondName: 'levi',
+                mail: 'yuvalevi@gmail.com',
+                age: 22,
+                gender: 'male',
+                city: 'tlv'
+            }];
+        students = JSON.parse(localStorage.getItem('myStudents'))
+        disStudents()
+        function addStu() {
+            students.push({ firstName: stuFirstName.value, secondName: stuSecName.value, mail: stuMail.value, age: stuAge.value, gender: stuGender.value, city: stuCity.value })
+            disStudents()
+        }
+        function disStudents() {
+            for (let i = 0; i < students.length; i++) {
+                studentsDis.innerHTML += `<button onclick='updDisplay(${i})'>update</button>
+                <button onclick='delStudent(${i})'>delete</button>
+                |first name: ${students[i].firstName} | 
+                |second name: ${students[i].secondName} |
+                |mail: ${students[i].secondName} |
+                |age: ${students[i].age} |
+                |city: ${students[i].city} |
+                |gender: ${students[i].gender}|`
+            }
+        }
+        function saveStudents() {
+            localStorage.setItem('myStudents', JSON.stringify(students))
+        }
+        function delStudent(i) {
+            students.splice(i, 1)
+            disStudents()
+        }
+        function updDisplay(i){
+            updStuForm.style.display = 'initial'
+            stuFirstNameUpd.value = students[i].firstName
+            stuSecNameUpd.value = students[i].secondName
+            stuMailUpd.value = students[i].mail
+            stuAgeUpd.value = students[i].age
+            stuGenderUpd.value = students[i].gender
+            stuCityUpd.value = students[i].city
+            stuIndUpd.value = i
+            console.log(i);
+            
+        }
+        function updStudent(){
+            let i = stuIndUpd.value
+            students[i].firstName = stuFirstNameUpd.value
+            students[i].secondName = stuSecNameUpd.value
+            students[i].mail = stuMailUpd.value
+            students[i].age = stuAgeUpd.value
+            students[i].gender = stuGenderUpd.value
+            students[i].city = stuCityUpd.value
+            updStuForm.style.display = 'none'
+            disStudents()
+        }
+
+
+    </script>
+</body>
+
+</html>

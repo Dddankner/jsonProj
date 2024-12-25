@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    product: <input type="text" id="prodName">
+    cuantity: <input type="number" id="prodCuant">
+    <button onclick="addProd()">add</button>
+    <div id="disShopList"></div>
+
+    <script>
+        let shopList = [{id: 0, pName: 'milk', pCuantity: 2},
+            {id: 1, pName: 'eggs', pCuantity: 4}
+        ]
+
+        //CRUD
+        //read
+        const read=() => disShopList.innerHTML = shopList.map(item => `<button onclick='delProd(${item.id})'>Delete</button>|
+            <button>Update</button>|
+            item: ${item.pName}|
+            cuantity: ${item.pCuantity}
+            </div>`).join("<br>") 
+        read()
+        const delProd=(id)=>{
+            shopList = shopList.filter(item => item.id != id)
+            read()
+        }
+        const addProd=()=>{
+            shopList.push({id: shopList.length, pName: prodName.value, pCuantity: prodCuant.value})
+            read()
+        }
+    </script>
+</body>
+</html>

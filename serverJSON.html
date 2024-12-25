@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdn.jsdelivr.net/npm/axios@1.6.7/dist/axios.min.js"></script>
+    <title>Document</title>
+</head>
+
+<body>
+    <label for="carBrand">brand: </label><input type="text" id="carBrand">
+    <label for="carModel">model: </label><input type="text" id="carModel">
+    <label for="carYear">year: </label><input type="number" id="carYear">
+    <button onclick="add()">add</button>
+    <div id="disData"></div>
+    <div id="disUpdate" style="display: none;">
+        <label for="carBrandUpd">brand: </label><input type="text" id="carBrandUpd">
+        <label for="carModelUpd">model: </label><input type="text" id="carModelUpd">
+        <label for="carYearUpd">year: </label><input type="number" id="carYearUpd">
+        <input type="text" name="carIdUpd" id="carIdUpd" disabled>
+        <button onclick="upd()">Update</button>
+    </div>
+    <script>
+        const SERVER = 'http://localhost:3000/cars'
+        //CRUD
+        //create
+        const add = () => axios.post(SERVER, `'brand': ${carBrand.value}, 
+            'model': ${carModel.value}, 
+            'year': ${carYear.value}`)
+
+        //read
+        const read = () => axios(SERVER).then(res => res.data.map(car => `<button>Delete</button>|
+            <button>Update</button>|
+            brand: ${car.brand}|
+            model: ${car.model}|
+            year: ${car.year}`.join("<br>")))
+
+        //update
+        const updDisplay = (id) => {
+            disUpdate.style.display = 'initial'
+
+        }
+        const upd = () => axios.put(SERVER + `/${carIdUpd.value}`, `'brand': ${carBrandUpd.value}, 
+            'model': ${carModelUpd.value}, 
+            'year': ${carYearUpd.value}`)
+
+        //delete
+        const del = (id) =>
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <h2>add animal</h2>
+    <hr>
+    <label for="animalName">Name: </label><input type="text" name="animalName" id="animalName">
+    <label for="animalType">type: </label><input type="text" name="animalType" id="animalType">
+    <label for="animalAge">age:</label><input type="number" name="animalAge" id="animalAge">
+    <select name="animalGender" id="animalGender">
+        <option value="plcHolder" disabled="true" selected>choose gender</option>
+        <option value="male">male</option>
+        <option value="female">female</option>
+    </select>
+    <button name="addAnimal" id="addAnimal" onclick="addAni()">add animal</button>
+    <hr>
+    <h2>animals:</h2>
+    <hr>
+    <div id="animalsDis"></div>
+    <hr>
+    <button onclick="saveAnimals()">save</button><br>
+    <div style="display: none;" id="updateAnimal">
+        <label for="animalNameUpd">Name: </label><input type="text" name="animalNameUpd" id="animalNameUpd">
+        <label for="animalTypeUpd">type: </label><input type="text" name="animalTypeUpd" id="animalTypeUpd">
+        <label for="animalAgeUpd">age:</label><input type="number" name="animalAgeUpd" id="animalAgeUpd">
+        <select name="animalGenderUpd" id="animalGenderUpd">
+            <option value="male">male</option>
+            <option value="female">female</option>
+        </select>
+        <input type="number" style="display: none;" id="animalIndex">
+        <button name="btnUpdAnimal" id="btnUpdAnimal" onclick="updAnimal()">update animal</button>
+    </div>
+    <script>
+        let animals = [
+            { name: 'joe', type: 'monkey', age: 4, gender: 'male', idKey: 0}
+        ]
+        animals = JSON.parse(localStorage.getItem("zooAnimals"))
+        disAnimals();
+        function disAnimals() {
+            animalsDis.innerHTML = "";
+            // for (let i = 0; i < animals.length; i++) {
+            //     animalsDis.innerHTML += `<button onclick="updAnimalDis(${i})">update</button>
+            //     <button onclick="delAnimal(${i})">delete</button>
+            //     |type: ${animals[i].type} 
+            //     |name: ${animals[i].name} 
+            //     |age: ${animals[i].age} 
+            //     |gender: ${animals[i].gender}
+            //     <br>`
+            // }
+            animalsDis.innerHTML = animals.map(ani => `
+                <div>
+                <button onclick="updAnimalDis(${ani.idKey})">update</button>
+                |<button onclick="delAnimal(${ani.idKey})">delete</button>
+                |type: ${ani.type}
+                |name: ${ani.name}
+                |age: ${ani.age}
+                |gender: ${ani.gender}
+                |id: ${ani.idKey}
+                </div>`).join('')
+        }
+        function delAnimal(i) {
+            // animals.splice(i, 1);
+            animals = animals.filter(x => x.idKey != i)
+            disAnimals();
+        }
+        function addAni() {
+            animals.push({ name: animalName.value, type: animalType.value, age: animalAge.value, gender: animalGender.value, idKey: animals[animals.length-1].idKey + 1 })
+            animalName.value = "";
+            animalType.value = "";
+            animalAge.value = "";
+            console.log(animals)
+            disAnimals();
+        }
+        function updAnimalDis(i) {
+            // animalNameUpd.value = animals[i].name
+            // animalTypeUpd.value = animals[i].type
+            // animalAgeUpd.value = animals[i].age
+            // animalGenderUpd.value = animals[i].gender
+            // animalIndex.value = i;
+            // console.log(animalIndex.value)
+            // updateAnimal.style.display = 'initial'
+        }
+        function updAnimal() {
+            let i = animalIndex.value
+            animals[i].age = animalAgeUpd.value
+            animals[i].name = animalNameUpd.value
+            animals[i].type = animalTypeUpd.value
+            animals[i].gender = animalGenderUpd.value
+            updateAnimal.style.display = 'none'
+            disAnimals()
+        }
+        function saveAnimals() {
+            localStorage.setItem("zooAnimals", JSON.stringify(animals));
+        }
+    </script>
+</body>
+
+</html>

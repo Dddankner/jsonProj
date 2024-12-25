@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .ccc{
+            background-color: rgb(85, 127, 164);
+            height: device-height;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="dis">
+        <button id="btn1" style="position: absolute;">1</button>
+        <button id="btn2" style="position: absolute;">2</button>
+        <button id="btn3" style="position: absolute;">3</button>
+        <input type="text" id="dateNow" style="width: 500px; text-align: center;" disabled="true">
+    </div>
+    <script>
+        // let btnAr = [];
+        // let rndBtn = Math.floor(Math.random() * 20 + 1)
+        // for (let i = 0; i < rndBtn; i++) {
+        //     let r = Math.floor(Math.random() * 256); 
+        //     let g = Math.floor(Math.random() * 256);
+        //     let b = Math.floor(Math.random() * 256);
+        //     btnAr += `<button style="background-color:rgb(${r}, ${g}, ${b});">${i}</button>&nbsp`
+        //     console.log(r, g, b);
+        // }
+        // for(let i = 0; i <= 10; i++){
+        //     for(let z = 0; z <= 10; z++){
+        //         if(i == 0 && z == 0){
+        //             dis.innerHTML += `<button style="width:40px;height:40px;background-color:aqua">x</button>`;    
+        //         }
+        //         else if(z == 0){
+        //             dis.innerHTML += `<button style="width:40px;height:40px;background-color:aqua">${i}</button>`;    
+        //         }else if(i == 0){
+        //         dis.innerHTML += `<button style="width:40px;height:40px;background-color:aqua">${z}</button>`;
+        //         }else{
+        //             dis.innerHTML += `<button style="width:40px;height:40px;background-color: rgb(${(i*z)}, ${(i*z) + 100}, ${(i*z) * 10});">${i * z}</button>`;
+        //         }
+        //     }
+        //     dis.innerHTML += `<br>`;
+        // }
+
+        let btn1Pos = 10;
+        let moveDir = 10;
+
+
+        function moveBtn1(){
+            if(btn1Pos > window.innerHeight){
+                moveDir = -moveDir
+                console.log(moveDir);
+                
+            }else if(btn1Pos < 10){
+                moveDir = 10;
+            }
+            btn1Pos += moveDir
+            btn1.style.top = `${btn1Pos}px`;
+        }
+        
+        let btn2Pos = 10;
+        let moveDirBtn2 = 10;
+        function moveBtn2(){
+            if(btn2Pos > window.innerWidth){
+                moveDirBtn2 = -moveDirBtn2;
+                console.log(moveDirBtn2);
+                
+            }else if(btn2Pos < 10){
+                moveDirBtn2 = 10;
+            }
+            btn2Pos += moveDirBtn2;
+            btn1.style.left = `${btn2Pos}px`;
+        }
+        setInterval(moveBtn1, 100)
+        setInterval(moveBtn2, 100)
+        // let nowDate = "";
+        // function showDate(){
+        //     const now1 = new Date();
+        //     // nowDate = `time: ${now1.getHours()}:${now1.getMinutes()},${now1.getSeconds()} date: ${now1.getDate()}/${now1.getMonth()}/${now1.getFullYear()}` ;
+        //     dateNow.value = `time: ${now1.getHours()}:${now1.getMinutes()},${now1.getSeconds()} date: ${now1.getDate()}/${now1.getMonth()}/${now1.getFullYear()}`
+        //     console.log(`time: ${now1.getHours()}:${now1.getMinutes()},${now1.getSeconds()} date: ${now1.getDate()}/${now1.getMonth()}/${now1.getFullYear()}`)
+        // }
+        // setInterval(showDate, 1000)
+        
+
+    </script>
+</body>
+
+</html>
